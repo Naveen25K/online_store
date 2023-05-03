@@ -178,11 +178,11 @@ const Cards = ({ userData }) => {
               >
                 Add
               </Button>
-              {userData.email !== "" ? (
+              {userData && (
                 <Button variant="contained" color="error" autoFocus>
                   Logout
                 </Button>
-              ) : null}
+              )}
             </DialogActions>
           </Dialog>
         </div>
