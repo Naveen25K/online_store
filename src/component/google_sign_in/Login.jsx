@@ -6,9 +6,11 @@ import Cards from "../Cards";
 
 const Login = () => {
   const [value, setValue] = useState(``);
+  const [userData, setUserData] = useState(``);
   const singnInGoogle = () => {
     signInWithPopup(auth, provider).then((data) => {
       setValue(data.user.email);
+      setUserData(data);
       localStorage.setItem("email", data.user.email);
       console.log(data);
     });
@@ -17,12 +19,10 @@ const Login = () => {
     setValue(localStorage.getItem(`email`));
   });
 
-  console.log(value);
-
   return (
     <>
       {value ? (
-        <Cards />
+        <Cards userData={userData} />
       ) : (
         <div>
           <h1 style={{ marginTop: "100px" }}>Login With Email</h1>

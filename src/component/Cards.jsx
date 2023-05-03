@@ -16,7 +16,7 @@ import {
 import axios from "axios";
 import Product from "./Product";
 
-const Cards = () => {
+const Cards = ({ userData }) => {
   const [open, setOpen] = useState(false);
   const [newProduct, setNewProduct] = useState([]);
   const [category, setCateogry] = useState("");
@@ -73,19 +73,19 @@ const Cards = () => {
           <CardContent>
             <Avatar
               sx={{ width: "100px", height: "100px" }}
-              src="https://mui.com/static/images/avatar/3.jpg"
+              src={userData.photoURL}
             ></Avatar>
           </CardContent>
         </div>
 
         <div className="card_data">
           <h4>User Name</h4>
-          <Typography variant="h6">Navin Kandpal</Typography>
+          <Typography variant="h6">{userData.displayName}</Typography>
         </div>
 
         <div className="card_data">
           <h4>User Email</h4>
-          <Typography variant="h6">testing@gmail.com</Typography>
+          <Typography variant="h6">{userData.email}</Typography>
         </div>
 
         <div className="card_data">
@@ -176,6 +176,11 @@ const Cards = () => {
               >
                 Add
               </Button>
+              {userData ? (
+                <Button variant="contained" color="error" autoFocus>
+                  Logout
+                </Button>
+              ) : null}
             </DialogActions>
           </Dialog>
         </div>
