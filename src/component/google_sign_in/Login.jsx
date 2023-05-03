@@ -6,7 +6,7 @@ import Cards from "../Cards";
 
 const Login = () => {
   const [value, setValue] = useState(``);
-  const [userData, setUserData] = useState(``);
+  const [userData, setUserData] = useState([]);
   const singnInGoogle = () => {
     signInWithPopup(auth, provider).then((data) => {
       setValue(data.user.email);
