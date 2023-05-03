@@ -10,7 +10,7 @@ const Login = () => {
   const singnInGoogle = () => {
     signInWithPopup(auth, provider).then((data) => {
       setValue(data.user.email);
-      setUserData(data);
+      setUserData(data.user);
       localStorage.setItem("email", data.user.email);
     });
   };
