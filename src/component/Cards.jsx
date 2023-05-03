@@ -17,6 +17,8 @@ import axios from "axios";
 import Product from "./Product";
 
 const Cards = ({ userData }) => {
+  console.log("cards componet called");
+  console.log(userData);
   const [open, setOpen] = useState(false);
   const [newProduct, setNewProduct] = useState([]);
   const [category, setCateogry] = useState("");

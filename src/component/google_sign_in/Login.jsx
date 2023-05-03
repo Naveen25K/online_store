@@ -12,7 +12,6 @@ const Login = () => {
       setValue(data.user.email);
       setUserData(data);
       localStorage.setItem("email", data.user.email);
-      console.log(data);
     });
   };
   useEffect(() => {
