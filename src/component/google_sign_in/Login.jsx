@@ -10,23 +10,26 @@ const Login = () => {
     signInWithPopup(auth, provider).then((data) => {
       setValue(data.user.email);
       localStorage.setItem("email", data.user.email);
+      console.log(data);
     });
   };
   useEffect(() => {
     setValue(localStorage.getItem(`email`));
   });
 
-  // console.log(value);
+  console.log(value);
 
   return (
     <>
-      <h1 style={{ marginTop: "100px" }}>Login With Email</h1>
       {value ? (
         <Cards />
       ) : (
-        <button variant="contained" onClick={singnInGoogle}>
-          Sign In With Google
-        </button>
+        <div>
+          <h1 style={{ marginTop: "100px" }}>Login With Email</h1>
+          <button variant="contained" onClick={singnInGoogle}>
+            Sign In With Google
+          </button>
+        </div>
       )}
     </>
   );
