@@ -15,18 +15,22 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import Product from "./Product";
+// loader installed import
+import { Audio } from "react-loader-spinner";
 
 const Cards = ({ userData }) => {
-  console.log("cards componet called");
-  console.log(userData);
   const [open, setOpen] = useState(false);
   const [newProduct, setNewProduct] = useState([]);
   const [category, setCateogry] = useState("");
+  // show loader for data fetching
+
+  const [spin, setSpin] = useState(false);
 
   // fetch product from api
   const fetchProduct = async () => {
     const data = await axios.get("https://fakestoreapi.com/products?limit=50");
     setNewProduct(data.data);
+    setSpin(true);
   };
   useEffect(() => {
     fetchProduct();
@@ -39,6 +43,7 @@ const Cards = ({ userData }) => {
     title: "",
     description: "",
     price: "",
+    category: "",
     image: "",
   });
 
@@ -51,7 +56,7 @@ const Cards = ({ userData }) => {
   // close the pop up or dialog box
 
   const handleClose = () => {
-    addProduct.id !== ""
+    addProduct.id !== "" && addProduct.image !== ""
       ? newProduct.push(addProduct)
       : setNewProduct(newProduct);
     setOpen(false);
@@ -82,19 +87,19 @@ const Cards = ({ userData }) => {
           <CardContent>
             <Avatar
               sx={{ width: "100px", height: "100px" }}
-              src={userData.photoURL}
+              // src={userData.photoURL}
             ></Avatar>
           </CardContent>
         </div>
 
         <div className="card_data">
           <h4>User Name</h4>
-          <Typography variant="h6">{userData.title}</Typography>
+          {/* <Typography variant="h6">{userData.displayName}</Typography> */}
         </div>
 
         <div className="card_data">
           <h4>User Email</h4>
-          <Typography variant="h6">{userData.email}</Typography>
+          {/* <Typography variant="h6">{userData.email}</Typography> */}
         </div>
 
         <div className="card_data">
@@ -166,6 +171,19 @@ const Cards = ({ userData }) => {
                 name="price"
                 onChange={addChange}
               />
+              <h4>Choose Category</h4>
+              <select
+                name="category"
+                value={addProduct.category}
+                onChange={addChange}
+              >
+                <option value="all">All</option>
+                <option value="men's clothing">men's clothing</option>
+                <option value="jewelery">jewelery</option>
+                <option value="electronics">electronics</option>
+                <option value="women's clothing">women's clothing</option>
+              </select>
+
               <h4>Image URL</h4>
               <Input
                 type="text"
@@ -201,13 +219,31 @@ const Cards = ({ userData }) => {
           )}
         </div>
       </div>
-      {newProduct.length !== 0 && (
-        <Product
-          newAddedProduct={newProduct}
-          category={category}
-          newProduct={newProduct}
-          setNewProduct={setNewProduct}
-        />
+      {spin ? (
+        newProduct.length !== 0 ? (
+          <Product
+            category={category}
+            newProduct={newProduct}
+            setNewProduct={setNewProduct}
+          />
+        ) : (
+          <center>
+            <h1>No Product in Database</h1>
+          </center>
+        )
+      ) : (
+        <div className="center_loader">
+          <h2>Product are loading</h2>
+          <Audio
+            height="80"
+            width="80"
+            radius="9"
+            color="green"
+            ariaLabel="three-dots-loading"
+            wrapperStyle
+            wrapperClass
+          />
+        </div>
       )}
     </>
   );

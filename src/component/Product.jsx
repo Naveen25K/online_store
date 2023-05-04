@@ -13,11 +13,15 @@ import axios from "axios";
 
 const Product = (props) => {
   // all product and sates fetched as an props from cards component
-  const { newAddedProduct, category, newProduct, setNewProduct } = props;
+  const { category, newProduct, setNewProduct } = props;
 
   // making new state for category filter to store complete data
 
   const [data, setData] = useState(newProduct);
+
+  // new state for adding a product to show when I select all in category option
+
+  const [newData, setNewData] = useState(newProduct);
 
   // store the target item which is comes from view and update buttons click
 
@@ -73,7 +77,8 @@ const Product = (props) => {
     const result = confirm("Are you sure you want to delete this product");
     if (result == true) {
       const restProduct = newProduct.filter((item) => item.id !== id);
-      props.setNewProduct(restProduct);
+      setNewProduct(restProduct);
+      setNewData(restProduct);
     }
   };
 
@@ -121,7 +126,7 @@ const Product = (props) => {
   const categoryFilter = () => {
     if (category !== "") {
       if (category === "all") {
-        setNewProduct(data);
+        setNewProduct(newData);
       } else {
         const categoryProduct = data.filter((val) => val.category === category);
         setNewProduct(categoryProduct);
