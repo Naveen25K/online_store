@@ -12,9 +12,12 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 
 const Product = (props) => {
-  // all product fetched in this state
+  // all product and sates fetched as an props from cards component
+  const { newAddedProduct, category, newProduct, setNewProduct } = props;
 
-  const [product, setProduct] = useState([]);
+  // making new state for category filter to store complete data
+
+  const [data, setData] = useState(newProduct);
 
   // store the target item which is comes from view and update buttons click
 
@@ -57,20 +60,20 @@ const Product = (props) => {
   // destructring props
 
   // fetch product from api
-  const fetchProduct = () => {
-    const { newAddedProduct } = props;
-    setProduct(newAddedProduct);
-  };
-  useEffect(() => {
-    fetchProduct();
-  }, []);
+  // const fetchProduct = () => {
+  //   const { newAddedProduct } = props;
+  //   setProduct(newAddedProduct);
+  // };
+  // useEffect(() => {
+  //   fetchProduct();
+  // }, []);
 
   // delete product
   const deleteProduct = (id) => {
     const result = confirm("Are you sure you want to delete this product");
     if (result == true) {
-      const restProduct = product.filter((item) => item.id !== id);
-      setProduct(restProduct);
+      const restProduct = newProduct.filter((item) => item.id !== id);
+      props.setNewProduct(restProduct);
     }
   };
 
@@ -90,10 +93,10 @@ const Product = (props) => {
   // handle update close and finally update the products
 
   const handleUpdateClose = (data) => {
-    const newProductList = product.map((product) =>
+    const newProductList = newProduct.map((product) =>
       product.id === data.id ? data : product
     );
-    setProduct(newProductList);
+    setNewProduct(newProductList);
     setOpenUpdate(false);
   };
 
@@ -113,21 +116,15 @@ const Product = (props) => {
       [name]: value,
     });
   };
-  console.log(product);
 
   // category filter
   const categoryFilter = () => {
-    let { newAddedProduct, category } = props;
-    console.log(newAddedProduct);
-
     if (category !== "") {
       if (category === "all") {
-        setProduct(newAddedProduct);
+        setNewProduct(data);
       } else {
-        const categoryProduct = newAddedProduct.filter(
-          (val) => val.category === category
-        );
-        setProduct(categoryProduct);
+        const categoryProduct = data.filter((val) => val.category === category);
+        setNewProduct(categoryProduct);
       }
     }
   };
@@ -139,7 +136,7 @@ const Product = (props) => {
     <>
       <h1 style={{ textAlign: "center", marginBottom: "80px" }}>Products</h1>
       <div className="products">
-        {product.map((item) => {
+        {newProduct.map((item) => {
           return (
             <CardContent className="product_content">
               <div>

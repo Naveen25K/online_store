@@ -67,6 +67,13 @@ const Cards = ({ userData }) => {
     });
   };
 
+  // logout user
+
+  const logoutUser = () => {
+    localStorage.clear();
+    window.location.reload();
+  };
+
   return (
     <>
       <div className="cards">
@@ -75,19 +82,19 @@ const Cards = ({ userData }) => {
           <CardContent>
             <Avatar
               sx={{ width: "100px", height: "100px" }}
-              src={userData.photoURL}
+              // src={userData.photoURL}
             ></Avatar>
           </CardContent>
         </div>
 
         <div className="card_data">
           <h4>User Name</h4>
-          <Typography variant="h6">{userData.displayName}</Typography>
+          <Typography variant="h6">Navin kandpal</Typography>
         </div>
 
         <div className="card_data">
           <h4>User Email</h4>
-          <Typography variant="h6">{userData.email}</Typography>
+          <Typography variant="h6">abc@gmail.com</Typography>
         </div>
 
         <div className="card_data">
@@ -178,17 +185,29 @@ const Cards = ({ userData }) => {
               >
                 Add
               </Button>
-              {userData && (
-                <Button variant="contained" color="error" autoFocus>
-                  Logout
-                </Button>
-              )}
             </DialogActions>
           </Dialog>
+          <br></br>
+          <br></br>
+          {true && (
+            <Button
+              variant="contained"
+              color="error"
+              autoFocus
+              onClick={logoutUser}
+            >
+              Logout
+            </Button>
+          )}
         </div>
       </div>
       {newProduct.length !== 0 && (
-        <Product newAddedProduct={newProduct} category={category} />
+        <Product
+          newAddedProduct={newProduct}
+          category={category}
+          newProduct={newProduct}
+          setNewProduct={setNewProduct}
+        />
       )}
     </>
   );
