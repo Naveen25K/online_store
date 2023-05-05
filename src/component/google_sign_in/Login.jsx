@@ -3,7 +3,6 @@ import { Button, Input } from "@mui/material";
 import { auth, provider } from "./config";
 import { signInWithPopup } from "firebase/auth";
 import Cards from "../Cards";
-
 const Login = () => {
   const [value, setValue] = useState(``);
   const [userData, setUserData] = useState([]);
@@ -23,11 +22,18 @@ const Login = () => {
       {value ? (
         <Cards userData={userData} />
       ) : (
-        <div>
-          <h1 style={{ marginTop: "100px" }}>Login With Email</h1>
-          <button variant="contained" onClick={singnInGoogle}>
-            Sign In With Google
-          </button>
+        <div className="container">
+          <div className="login_bg">
+            <h1>Welcome To Store</h1>
+
+            <Button
+              sx={{ marginTop: 3 }}
+              variant="contained"
+              onClick={singnInGoogle}
+            >
+              Sign In With Google
+            </Button>
+          </div>
         </div>
       )}
     </>

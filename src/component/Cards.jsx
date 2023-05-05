@@ -87,19 +87,19 @@ const Cards = ({ userData }) => {
           <CardContent>
             <Avatar
               sx={{ width: "100px", height: "100px" }}
-              // src={userData.photoURL}
+              src={userData.photoURL}
             ></Avatar>
           </CardContent>
         </div>
 
         <div className="card_data">
           <h4>User Name</h4>
-          {/* <Typography variant="h6">{userData.displayName}</Typography> */}
+          <Typography variant="h6">{userData.displayName}</Typography>
         </div>
 
         <div className="card_data">
           <h4>User Email</h4>
-          {/* <Typography variant="h6">{userData.email}</Typography> */}
+          <Typography variant="h6">{userData.email}</Typography>
         </div>
 
         <div className="card_data">
